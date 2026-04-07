@@ -1,0 +1,16 @@
+{
+  "name": "tara-wa",
+  "description": "WhatsApp messaging, lead follow-up, and automation for your business. Send reminders, manage conversations, and set up automated flows.",
+  "version": "1.0.0",
+  "userConfig": {
+    "api_key": {
+      "description": "Your tara-wa API key (get one at https://178-62-223-25.sslip.io)",
+      "sensitive": true
+    },
+    "server_url": {
+      "description": "tara-wa server URL",
+      "default": "https://178-62-223-25.sslip.io"
+    }
+  },
+  "channels": ["tara-wa-channel"]
+}

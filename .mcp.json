@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "tara-wa-tools": {
+      "type": "http",
+      "url": "${user_config.server_url}/mcp",
+      "headers": {
+        "Authorization": "Bearer ${user_config.api_key}"
+      }
+    },
+    "tara-wa-channel": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_DIR}/channel/index.js"],
+      "env": {
+        "TARA_WA_API_KEY": "${user_config.api_key}",
+        "TARA_WA_SERVER": "${user_config.server_url}"
+      }
+    }
+  }
+}
