@@ -56,8 +56,36 @@ When setting up template variables, explain:
 
 After any changes, show the updated list of automations with their status.
 
+## Step 6: Create templates if needed
+
+If the user needs a template that doesn't exist yet, create it for them:
+
+1. Ask what the message should say
+2. Determine the category:
+   - Promos, offers, newsletters → `MARKETING`
+   - Order updates, confirmations, reminders → `UTILITY`
+   - OTP / verification → `AUTHENTICATION`
+3. Use `create_whatsapp_template` with the right components
+4. If it has variables (like customer name), include example values
+5. Tell the user: "Template created! UTILITY templates are usually approved instantly. MARKETING templates may take a few hours."
+
+**Example — creating a lead follow-up template:**
+```
+name: "lead_followup"
+category: "MARKETING"
+language: "en"
+components: [
+  {
+    "type": "BODY",
+    "text": "Hi {{1}}, thanks for your interest! We'd love to tell you more about our services. When is a good time to chat?",
+    "example": { "body_text": [["John"]] }
+  }
+]
+```
+
 ## Important notes
 
 - WhatsApp requires template messages for first contact. Free-form messages only work within 24h of the client's last reply.
-- Templates must be pre-approved in Meta Business Manager before they can be used in automations.
-- Use `list_whatsapp_templates` to see which templates are available and approved.
+- Templates must be approved by Meta before they can be sent. UTILITY templates are usually approved within minutes. MARKETING templates may take hours.
+- Use `list_whatsapp_templates` to see available templates, `create_whatsapp_template` to make new ones, and `delete_whatsapp_template` to remove old ones.
+- Use `get_template_details` to see the full structure of a template including its variables.
