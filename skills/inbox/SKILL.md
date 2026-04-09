@@ -57,7 +57,7 @@ _'Can I reschedule to next week?'_
 📩 **Mike de Vries** — yesterday
 _'Thanks for the reminder!'_
 
-⚠️ _This message is over 24h old — free-form reply not available. I can send a template instead._
+⚠️ _WhatsApp only allows free replies within 24 hours of their last message. After that, only approved templates can be sent. I can send a template instead._
 → 📋 Send template  |  ⏭️ Skip
 
 ---

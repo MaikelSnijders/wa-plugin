@@ -94,8 +94,8 @@ If the user asks about connecting their forms, CRM, or lead sources:
 "To automatically receive leads from your website, forms, or CRM, you'll need to set up a webhook. Here's how:
 
 **Your webhook URL:** `https://webbai.nl/webhook/inbound/generic`
-**Header:** `Authorization: Bearer [your API key]`
-**Body format:** `{"name": "...", "phone": "...", "email": "...", "source": "..."}`
+**Header:** `Authorization: [your API key]`
+**Format:** Send name, phone, email, and source fields
 
 If you're using:
 - **Facebook Lead Ads** — I can help you connect that directly (different webhook)

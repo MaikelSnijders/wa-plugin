@@ -48,35 +48,24 @@ Let me know when you've done that!"
 
 "Now let's set up some automated tasks. Here's what I can run for you on autopilot:
 
-1. **Daily Appointment Reminders** — Every morning I check your calendar and send WhatsApp reminders to clients with appointments today. _Recommended: 8:00 AM_
+1. **Morning Briefing** — Every morning I send appointment reminders, check your inbox for unanswered messages, flag new leads, check appointment follow-ups, and surface due reminders. One briefing covers everything. _Recommended: 9:00 AM_
 
-2. **Daily Follow-up Check** — Every afternoon I review your conversations, find unanswered messages and new leads, and draft follow-up messages for your approval. _Recommended: 2:00 PM_
+2. **Weekly Report** — Every Monday I send you a summary of your WhatsApp activity — messages sent, replies, new leads, pending follow-ups. _Recommended: Monday 9:00 AM_
 
-3. **Weekly Report** — Every Monday I send you a summary of your WhatsApp activity — messages sent, replies, new leads, pending follow-ups. _Recommended: Monday 9:00 AM_
-
-Which ones would you like to activate? You can pick all of them, or just the ones you need."
+Which ones would you like to activate? You can pick both, or just one."
 
 ## Step 5: Deploy scheduled tasks
 
 For each task the user wants, ask about timing preferences then use `create_scheduled_task` to deploy them.
 
-### Daily Reminders
-Ask: "What time should I send reminders? (default: 8:00 AM)"
+### Morning Briefing
+Ask: "What time should I run your morning briefing? (default: 9:00 AM)"
 
 Deploy with `create_scheduled_task`:
-- **taskId:** `webbai-daily-reminders`
-- **description:** `Webbai Daily Appointment Reminders`
-- **cronExpression:** `0 8 * * *` (adjust hour to user preference)
-- **prompt:** `You are running the daily appointment reminder task for Webbai. Use Google Calendar to fetch today's events. For each event with a phone number: extract the contact name, phone number, appointment time, and type. Skip events without phone numbers. Format phone numbers to E.164 (default +31 for Netherlands). For each contact: call generate_whatsapp_message with their name, time, and type, then call send_whatsapp_message to send the reminder. Do NOT ask for confirmation — send automatically. Report a summary when done.`
-
-### Daily Follow-up
-Ask: "When should I check for follow-ups? (default: 2:00 PM)"
-
-Deploy with `create_scheduled_task`:
-- **taskId:** `webbai-daily-followup`
-- **description:** `Webbai Daily Follow-up Check`
-- **cronExpression:** `0 14 * * *` (adjust hour to user preference)
-- **prompt:** `You are running the daily follow-up check for Webbai. Step 1: Call get_inbound_messages with unread_only true to find unanswered messages. For each, check if within 24h window — if yes, draft a reply matching the tone and present for approval. Step 2: Call get_leads to find leads with status 'new'. Group them and suggest sending a welcome template. Step 3: Check get_send_logs for contacts messaged 2+ days ago with no reply — suggest follow-up templates. Present all actions for approval before sending. Never send without approval.`
+- **taskId:** `webbai-morning-briefing`
+- **description:** `Webbai Morning Briefing`
+- **cronExpression:** `0 9 * * *` (adjust hour to user preference)
+- **prompt:** `You are running the Webbai morning briefing. Step 1: Use Google Calendar to fetch today's events. For each event with a phone number: extract the contact name, phone number, appointment time, and type. Skip events without phone numbers. Format phone numbers to international format (default +31 for Netherlands). For each contact: call generate_whatsapp_message with their name, time, and type, then call send_whatsapp_message to send the reminder. Do NOT ask for confirmation — send automatically. Step 2: Call get_inbound_messages with unread_only true to find unanswered messages. Step 3: Call get_leads to find leads with status new. Step 4: Call get_appointments with needs_followup true. Step 5: Call get_due_reminders. Step 6: Present a clean summary of everything — reminders sent, unanswered messages, new leads, follow-ups needed, and due reminders.`
 
 ### Weekly Report
 Deploy with `create_scheduled_task`:
@@ -87,8 +76,7 @@ Deploy with `create_scheduled_task`:
 
 After deploying all tasks, confirm each one:
 "Scheduled tasks activated:
-- Daily reminders at 8:00 AM
-- Daily follow-up at 2:00 PM
+- Morning briefing at 9:00 AM
 - Weekly report on Mondays at 9:00 AM"
 
 ## Step 6: Quick-start automations
@@ -109,8 +97,7 @@ If they want automations, guide them through creating templates and automations.
 "You're all set! Here's what I've configured:
 
 **WhatsApp** — Connected
-**Daily reminders** — Active (8:00 AM)
-**Daily follow-up** — Active (2:00 PM)
+**Morning briefing** — Active (9:00 AM)
 **Weekly report** — Active (Monday 9:00 AM)
 
 **Quick commands you can use anytime:**

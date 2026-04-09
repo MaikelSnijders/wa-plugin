@@ -65,7 +65,7 @@ Want me to send them your welcome template? Or I can draft personalized messages
 
 If they approve, use `send_whatsapp_template` for each (since these are first contacts, templates are required).
 
-## Step 2.5: Post-appointment follow-ups
+## Step 3: Post-appointment follow-ups
 
 Call `get_appointments` with `needs_followup: true`.
 
@@ -80,7 +80,7 @@ Want me to send follow-up messages? I'll draft personalized ones for each."
 
 If approved, draft and send via `send_whatsapp_message`, then call `update_appointment_status` with `followed_up`.
 
-## Step 2.7: Due reminders
+## Step 4: Due reminders
 
 Call `get_due_reminders` to find reminders that have fired.
 
@@ -94,7 +94,7 @@ _You set this 2 weeks ago: 'Lead said not now, reach out in 2 weeks. Was interes
 Suggested: Send a check-in message.
 → Draft message? | Send template? | Snooze 1 week? | Dismiss"
 
-## Step 3: Follow-up suggestions
+## Step 5: Follow-up suggestions
 
 Check `get_send_logs` with `days_back: 7` for contacts who were messaged 2+ days ago but haven't replied.
 
@@ -105,7 +105,7 @@ Check `get_send_logs` with `days_back: 7` for contacts who were messaged 2+ days
 
 Want me to send them a gentle reminder? I'll use your follow-up template."
 
-## Step 4: Summary
+## Step 6: Summary
 
 "**Today's follow-up report:**
 - 📩 2 unanswered messages (replied to 1, skipped 1)

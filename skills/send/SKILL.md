@@ -22,11 +22,15 @@ The user might say:
    - If they're within the 24h window → can send free-form text
    - When in doubt, ask: "Have they messaged you before? If not, WhatsApp requires us to use a pre-approved template."
 
-3. **For free-form:** Call `generate_whatsapp_message` if the user wants an AI-drafted message, or use their exact text. Then `send_whatsapp_message`.
+3. **Confirm the recipient** before sending:
+   "I'll send this to **+31 6 12 34 56 78** ([contact name]). Correct?"
+   Wait for confirmation before proceeding.
 
-4. **For templates:** Call `list_whatsapp_templates` to show options. Let them pick, then `send_whatsapp_template` with any variables.
+4. **For free-form:** Call `generate_whatsapp_message` if the user wants an AI-drafted message, or use their exact text. Then `send_whatsapp_message`.
 
-5. **Confirm:** "Message sent to [name] ✅"
+5. **For templates:** Call `list_whatsapp_templates` to show options. Let them pick, then `send_whatsapp_template` with any variables.
+
+6. **Confirm:** "Message sent to [name] ✅"
 
 ## Multiple contacts
 

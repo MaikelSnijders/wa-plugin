@@ -65,6 +65,15 @@ Webbai runs as a hosted backend at `webbai.nl` that:
 | `list_automations` | View all automations |
 | `update_automation` | Edit an automation |
 | `delete_automation` | Remove an automation |
+| `get_appointments` | View appointments, optionally filter by follow-up needed |
+| `update_appointment_status` | Update an appointment's status (e.g. followed_up) |
+| `create_appointment` | Create a new appointment record |
+| `create_reminder` | Set a reminder to follow up with a contact later |
+| `list_reminders` | View all active reminders |
+| `cancel_reminder` | Cancel a pending reminder |
+| `get_due_reminders` | Get reminders that are due now |
+| `setup_calendly` | Connect your Calendly account |
+| `get_calendly_status` | Check Calendly connection status |
 
 ## Web dashboard
 

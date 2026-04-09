@@ -19,7 +19,7 @@ Use your connected Google Calendar to fetch today's events. For each event, extr
 
 - Skip events without a phone number (note them as skipped)
 - Deduplicate by phone — if someone has multiple appointments, keep the earliest
-- Format phone numbers to E.164 (add +31 for Netherlands if no country code)
+- Format phone numbers to international format (add +31 for Netherlands if no country code)
 
 **If no appointments with phone numbers:**
 "No appointments with phone numbers found for today. Nothing to send."

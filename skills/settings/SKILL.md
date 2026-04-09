@@ -7,15 +7,21 @@ Help the user check and manage their Webbai account settings through conversatio
 
 ## When the user asks about settings
 
-Call `get_setup_status` and present a friendly overview:
+Call `get_setup_status` first and display the actual returned data:
 
 "Here's your Webbai account status:
 
-**WhatsApp** — ✅ Connected
+**WhatsApp** — [show connected/disconnected based on response, include phone number if available]
+**Business name** — [show from response if available]
+**API key** — [show masked key, e.g. `sk-...a1b2`]
+**Webhook URL** — [show if configured]
 **Google Calendar** — check Claude Settings → Connected Apps
-**Subscription** — Pro plan (active)
+**Calendly** — [show status from `get_calendly_status` if available]
+**Subscription** — [show plan and status from response]
 
 What would you like to change?"
+
+Show actual values from the API response — don't just say "check webbai.nl" for everything. Only link to **webbai.nl/settings** for billing/subscription management.
 
 ## API Key
 
@@ -34,17 +40,13 @@ If they ask about webhooks or connecting their forms/CRM:
 `POST https://webbai.nl/webhook/inbound/generic`
 
 **Header:**
-`Authorization: Bearer [your API key from webbai.nl/settings]`
+`Authorization: [your API key from webbai.nl/settings]`
 
-**Send a JSON body like:**
-```json
-{
-  "name": "John Smith",
-  "phone": "+31612345678",
-  "email": "john@example.com",
-  "source": "website"
-}
-```
+**Send these fields:**
+- `name` — contact name (e.g. "John Smith")
+- `phone` — phone number in international format (e.g. "+31612345678")
+- `email` — email address
+- `source` — where the lead came from (e.g. "website")
 
 **Popular integrations:**
 - **Typeform** → Use the webhook integration in Typeform settings
