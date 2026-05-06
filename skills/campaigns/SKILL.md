@@ -46,26 +46,37 @@ When they provide contacts, use `import_contacts` to add them.
 **Option C: They want to type numbers directly**
 For small lists, collect the numbers and send individually.
 
-## Step 4: Confirm and send
+## Step 4: Confirm cost + send
 
-Before sending, always confirm:
-"Ready to send **promo_offer** to **47 contacts**. The messages will be queued and sent at 5 per second to stay within WhatsApp limits.
+**Bulk campaigns now run on credits.** 1 credit = 1 outbound message. Before sending, always confirm cost AND show the user what their balance will be after:
 
-This will take about 10 seconds to complete. Shall I go ahead?"
+"Ready to send **promo_offer** to **47 contacts**.
+This will use **47 credits** (you have **1,234** available — **1,187** remaining after).
+Sending at the rate allowed by your Meta tier (so ~30 minutes for 47 messages on Tier 1).
+
+Shall I go ahead?"
 
 When confirmed:
-- Use `send_bulk_template` with the template name, language, and contact list
-- Monitor with `get_batch_status`
+- Use `send_bulk_template` — it pre-checks credits and reserves them at queue time
+- If the response says `error: "Insufficient credits…"` STOP. Tell the user the shortfall and link to webbai.nl/credits to top up. **Do not retry.** Do not split the campaign.
+- On success the response gives `{batch_id, total_queued, credits_reserved, balance_after}` — always echo `balance_after` to the user
+- Monitor with `get_batch_status` — also reports `credits_consumed` and `credits_refunded`
 
 ## Step 5: Report
 
 "Campaign sent! 🚀
 - **45 delivered** ✅
-- **2 failed** (invalid phone numbers)
+- **2 failed** (invalid phone numbers, credits refunded)
+- **45 credits consumed**, **1,189** remaining
 
 You can track replies in your inbox at webbai.nl/inbox or say 'check my inbox' here."
 
 ## Important notes
-- WhatsApp has a messaging limit based on your business tier (typically 1,000/day for new accounts, scaling up to 100,000/day)
+
+- **Credits are required for campaigns.** Buy them at webbai.nl/credits — packs from 500 (€29) to 10,000 (€399). Pro and Business plans no longer include free bulk sends.
 - All bulk messages must use approved templates — no free-form bulk sends
-- Each message costs money via Meta's pricing (varies by country, typically €0.05-0.10 per message)
+- Failed sends are **automatically refunded** — clients only pay for successful deliveries
+- Cancelling a campaign refunds all unsent reserved credits
+- Per-campaign safety cap: **100 recipients on Pro, 500 on Business** (independent of credit balance)
+- Messages are throttled by your Meta messaging tier (Tier 1 = ~42/hr, Tier 2 = ~417/hr, Tier 3 = ~4,167/hr) — protects your WABA quality rating
+- 1:1 chats, automations, and briefings are NOT credit-charged — only the campaign flow uses credits
